@@ -50,6 +50,7 @@
             this.textCubePosX = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbPosX = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.tbPosY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackRayTrDepth)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -59,12 +60,12 @@
             // tbPosY
             // 
             this.tbPosY.Location = new System.Drawing.Point(606, 13);
-            this.tbPosY.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPosY.Margin = new System.Windows.Forms.Padding(4);
             this.tbPosY.Maximum = 50;
             this.tbPosY.Minimum = -50;
             this.tbPosY.Name = "tbPosY";
             this.tbPosY.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.tbPosY.Size = new System.Drawing.Size(56, 447);
+            this.tbPosY.Size = new System.Drawing.Size(56, 617);
             this.tbPosY.TabIndex = 3;
             this.tbPosY.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.tbPosY.Value = 2;
@@ -72,7 +73,7 @@
             // 
             // trackRayTrDepth
             // 
-            this.trackRayTrDepth.Location = new System.Drawing.Point(690, 241);
+            this.trackRayTrDepth.Location = new System.Drawing.Point(691, 234);
             this.trackRayTrDepth.Minimum = 1;
             this.trackRayTrDepth.Name = "trackRayTrDepth";
             this.trackRayTrDepth.Size = new System.Drawing.Size(531, 56);
@@ -86,7 +87,7 @@
             this.radioLight.AutoSize = true;
             this.radioLight.Checked = true;
             this.radioLight.Location = new System.Drawing.Point(691, 41);
-            this.radioLight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioLight.Margin = new System.Windows.Forms.Padding(4);
             this.radioLight.Name = "radioLight";
             this.radioLight.Size = new System.Drawing.Size(56, 20);
             this.radioLight.TabIndex = 0;
@@ -118,7 +119,7 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.textCubePosX);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(691, 91);
+            this.groupBox1.Location = new System.Drawing.Point(691, 82);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(505, 100);
             this.groupBox1.TabIndex = 5;
@@ -127,9 +128,9 @@
             // 
             // buttonAddCube
             // 
-            this.buttonAddCube.Location = new System.Drawing.Point(385, 29);
+            this.buttonAddCube.Location = new System.Drawing.Point(379, 21);
             this.buttonAddCube.Name = "buttonAddCube";
-            this.buttonAddCube.Size = new System.Drawing.Size(97, 49);
+            this.buttonAddCube.Size = new System.Drawing.Size(110, 57);
             this.buttonAddCube.TabIndex = 0;
             this.buttonAddCube.Text = "Add cube";
             this.buttonAddCube.UseVisualStyleBackColor = true;
@@ -146,7 +147,7 @@
             "2",
             "3"});
             this.comboSize.Location = new System.Drawing.Point(172, 70);
-            this.comboSize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboSize.Margin = new System.Windows.Forms.Padding(4);
             this.comboSize.Name = "comboSize";
             this.comboSize.Size = new System.Drawing.Size(121, 24);
             this.comboSize.TabIndex = 8;
@@ -160,18 +161,20 @@
             "GREEN",
             "BLUE",
             "YELLOW",
-            "WHITE"});
+            "WHITE",
+            "REFLECTION"});
             this.comboColor.Location = new System.Drawing.Point(10, 70);
             this.comboColor.Name = "comboColor";
             this.comboColor.Size = new System.Drawing.Size(121, 24);
             this.comboColor.TabIndex = 7;
             this.comboColor.Text = "Color";
+            this.comboColor.SelectedIndexChanged += new System.EventHandler(this.comboColor_SelectedIndexChanged);
             // 
             // textCubePosZ
             // 
             this.textCubePosZ.Location = new System.Drawing.Point(263, 29);
             this.textCubePosZ.Name = "textCubePosZ";
-            this.textCubePosZ.Size = new System.Drawing.Size(100, 22);
+            this.textCubePosZ.Size = new System.Drawing.Size(87, 22);
             this.textCubePosZ.TabIndex = 5;
             this.textCubePosZ.Text = "0";
             this.textCubePosZ.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -189,7 +192,7 @@
             // 
             this.textCubePosY.Location = new System.Drawing.Point(145, 29);
             this.textCubePosY.Name = "textCubePosY";
-            this.textCubePosY.Size = new System.Drawing.Size(91, 22);
+            this.textCubePosY.Size = new System.Drawing.Size(87, 22);
             this.textCubePosY.TabIndex = 3;
             this.textCubePosY.Text = "0";
             this.textCubePosY.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -223,20 +226,31 @@
             // 
             // tbPosX
             // 
-            this.tbPosX.Location = new System.Drawing.Point(13, 468);
-            this.tbPosX.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tbPosX.Location = new System.Drawing.Point(4, 609);
+            this.tbPosX.Margin = new System.Windows.Forms.Padding(4);
             this.tbPosX.Maximum = 50;
             this.tbPosX.Minimum = -50;
             this.tbPosX.Name = "tbPosX";
-            this.tbPosX.Size = new System.Drawing.Size(565, 56);
+            this.tbPosX.Size = new System.Drawing.Size(609, 56);
             this.tbPosX.TabIndex = 2;
             this.tbPosX.TickStyle = System.Windows.Forms.TickStyle.Both;
             this.tbPosX.Value = 2;
             this.tbPosX.Scroll += new System.EventHandler(this.tbPosX_Scroll);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(688, 200);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(117, 16);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "RayTracing Depth";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
+            // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(1233, 521);
+            this.ClientSize = new System.Drawing.Size(1233, 678);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.tbPosX);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.radioCamera);
@@ -270,6 +284,6 @@
         private System.Windows.Forms.Button buttonAddCube;
         private System.Windows.Forms.ComboBox comboSize;
         private System.Windows.Forms.TrackBar tbPosX;
+        private System.Windows.Forms.Label label4;
     }
 }
-

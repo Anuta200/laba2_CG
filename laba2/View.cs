@@ -22,6 +22,8 @@ namespace laba2
 
     class View
     {
+        private STriangle[] CubeTriangles = new STriangle[0];
+
         private int Width;
         private int Height;
         private int VWidth;
@@ -55,6 +57,7 @@ namespace laba2
             public OpenTK.Vector3 v1;
             public OpenTK.Vector3 v2;
             public OpenTK.Vector3 v3;
+            public int MaterialIdx;
         }
 
         public struct Basis
@@ -105,32 +108,16 @@ namespace laba2
 
         public static int LoadAndAttachShader(string path, ShaderType type, int programId)
         {
-            if (!File.Exists(path))
-            {
-                Console.WriteLine($"[ERROR] Shader file not found: {path}");
-                return -1;
-            }
-
             string source = File.ReadAllText(path);
             int shaderId = GL.CreateShader(type);
             GL.ShaderSource(shaderId, source);
             GL.CompileShader(shaderId);
-
-            GL.GetShader(shaderId, ShaderParameter.CompileStatus, out int compileStatus);
-            if (compileStatus != (int)All.True)
-            {
-                string infoLog = GL.GetShaderInfoLog(shaderId);
-                Console.WriteLine($"[COMPILE ERROR {type}] {infoLog}");
-                return -1;
-            }
-
             GL.AttachShader(programId, shaderId);
-            Console.WriteLine($"[SUCCESS] Shader compiled and attached: {path}");
             return shaderId;
         }
 
 
-        public void InitView(int ViewWidth = 800, int ViewHeight = 600)
+            public void InitView(int ViewWidth = 800, int ViewHeight = 600)
         {
             GL.ShadeModel(ShadingModel.Smooth);
             GL.MatrixMode(MatrixMode.Projection);
@@ -243,27 +230,30 @@ namespace laba2
 
         private void LoadCubes()
         {
-            // Массив вершин треугольников, изначально пуст
-            STriangle[] Triangles = new STriangle[0];
+            CubeTriangles = new STriangle[0];
 
             for (int i = 0; i < CUBE_COUNT; i++)
             {
-                // Создаем куб, сохраняем вершины
                 STriangle[] NextTriangles = CreateCube(CubePositions[i], CubeSizes[i]);
-                // Присоединяем новые вершины в общий массив
-                Triangles = Triangles.Union(NextTriangles).ToArray();
+
+                
+                for (int j = 0; j < NextTriangles.Length; j++)
+                {
+                    NextTriangles[j].MaterialIdx = CubeMaterials[i];
+                }
+
+                CubeTriangles = CubeTriangles.Union(NextTriangles).ToArray();
             }
 
-            // Последовательно загружаем вершины треугольников куба
-            for (int i = 0, CubeIndex = 0; i < Triangles.Length; i++)
+          
+            for (int i = 0; i < CubeTriangles.Length; i++)
             {
-                SetUniform3("CubeTriangles[" + i + "].v1", Triangles[i].v1);
-                SetUniform3("CubeTriangles[" + i + "].v2", Triangles[i].v2);
-                SetUniform3("CubeTriangles[" + i + "].v3", Triangles[i].v3);
-                SetUniform1("CubeTriangles[" + i + "].MaterialIdx", CubeMaterials[CubeIndex]);
-
-                CubeIndex = i / CUBE_TRIANGLES_COUNT;
+                SetUniform3("CubeTriangles[" + i + "].v1", CubeTriangles[i].v1);
+                SetUniform3("CubeTriangles[" + i + "].v2", CubeTriangles[i].v2);
+                SetUniform3("CubeTriangles[" + i + "].v3", CubeTriangles[i].v3);
+                SetUniform1("CubeTriangles[" + i + "].MaterialIdx", CubeTriangles[i].MaterialIdx);
             }
+
         }
 
         private void UpdateUniforms()
@@ -300,9 +290,20 @@ namespace laba2
 
             GL.End();
         }
+        public void UpdateCubeMaterial(int newMaterialIndex)
+        {
+            if (CUBE_COUNT == 0)
+                return;
+
+            int lastCubeIndex = CUBE_COUNT - 1;
+
+            CubeMaterials[lastCubeIndex] = newMaterialIndex;
+
+            UpdateUniforms();
+        }
 
     }
-}
    
-    
-    
+}
+
+

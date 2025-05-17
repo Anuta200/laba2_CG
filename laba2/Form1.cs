@@ -42,7 +42,7 @@ namespace laba2
             GLViewer.Height = 595;
         }
 
-       
+
 
         private void GLPaint(object sender, PaintEventArgs e)
         {
@@ -51,7 +51,7 @@ namespace laba2
             GLViewer.SwapBuffers();
         }
 
-       
+
 
         private void PosZ(object sender, MouseEventArgs e)
         {
@@ -69,7 +69,7 @@ namespace laba2
             GLViewer.Invalidate();
         }
 
-       
+
 
         private void tbPosY_Scroll(object sender, EventArgs e)
         {
@@ -98,7 +98,7 @@ namespace laba2
             }
         }
 
-       
+
 
         private void SetRayTracingDepth(object sender, EventArgs e)
         {
@@ -152,11 +152,46 @@ namespace laba2
         {
 
         }
+
+        private void comboColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string selectedColor = comboColor.SelectedItem.ToString();
+            int materialIndex = 0;
+
+            switch (selectedColor)
+            {
+                case "RED":
+                    materialIndex = 0;
+                    break;
+                case "GREEN":
+                    materialIndex = 1;
+                    break;
+                case "BLUE":
+                    materialIndex = 2;
+                    break;
+                case "YELLOW":
+                    materialIndex = 3;
+                    break;
+                case "WHITE":
+                    materialIndex = 4;
+                    break;
+                case "REFLECTION":
+                    materialIndex = 5;
+                    break;
+            }
+
+            SV.UpdateCubeMaterial(materialIndex);
+            GLViewer.Invalidate();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
-   
 
 
-        
+
+
 }
- 
