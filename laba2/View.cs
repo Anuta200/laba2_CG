@@ -50,7 +50,7 @@ namespace laba2
 
         public OpenTK.Vector3[] CubePositions = new OpenTK.Vector3[CUBE_MAX_COUNT];
         public OpenTK.Vector3 CameraPosition = new OpenTK.Vector3(0.0F, 0.0F, -4.9f);
-        public OpenTK.Vector3 LightSourcePosition = new OpenTK.Vector3(2.0f, 4.0f, -4.0f);
+        public OpenTK.Vector3 LightSourcePosition = new OpenTK.Vector3(2.0f, 4.0f, -2.0f);
 
         public struct STriangle
         {
